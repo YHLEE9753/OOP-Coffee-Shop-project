@@ -1,9 +1,6 @@
 package com.yongcoffee.coffeeShop.model.customer;
 
-import com.yongcoffee.coffeeShop.model.item.Coffee;
-import com.yongcoffee.coffeeShop.model.item.CoffeeSize;
-import com.yongcoffee.coffeeShop.model.item.CoffeeType;
-import com.yongcoffee.coffeeShop.model.item.Order;
+import com.yongcoffee.coffeeShop.model.item.*;
 import com.yongcoffee.coffeeShop.model.shopmember.Cashier;
 
 import java.util.ArrayList;
@@ -12,26 +9,24 @@ import java.util.List;
 public class Customer {
     private final Wallet wallet;
     private final String customerName;
-    private final Cashier cashier;
-    private List<Order> orderList = new ArrayList<>();
+    private OrderSheet orderSheet;
 
-    public Customer(Wallet wallet, String customerName, Cashier cashier) {
+    public Customer(Wallet wallet, String customerName) {
         this.wallet = wallet;
         this.customerName = customerName;
-        this.cashier = cashier;
     }
 
-    public List<Order> makeOrder() {
-        return cashier.getOrder(orderList, checkMoney());
+    public CompletedCoffeesCarrier makeOrder(Cashier cashier) {
+        return cashier.getOrder(orderSheet, checkMoney());
     }
 
-    public void chooseCoffee(CoffeeType coffeeType, CoffeeSize coffeeSize, int count) {
-        Coffee orderCoffee = new Coffee(coffeeType, coffeeSize);
+    public void chooseCoffee(CoffeeItem coffeeItem, CoffeeSize coffeeSize, int count) {
+        Coffee orderCoffee = new Coffee(coffeeItem, coffeeSize);
         Order order = new Order(orderCoffee, count, customerName);
-        orderList.add(order);
+        orderSheet.addOrder(order);
     }
 
     private int checkMoney() {
-        return wallet.checkMoney(orderList);
+        return wallet.checkMoney(orderSheet.getTotalPrice());
     }
 }

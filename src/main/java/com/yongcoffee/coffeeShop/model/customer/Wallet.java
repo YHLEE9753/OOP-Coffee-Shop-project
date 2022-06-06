@@ -1,6 +1,7 @@
 package com.yongcoffee.coffeeShop.model.customer;
 
 import com.yongcoffee.coffeeShop.model.item.Order;
+import com.yongcoffee.coffeeShop.model.item.OrderSheet;
 
 import java.util.List;
 
@@ -11,17 +12,14 @@ public class Wallet {
         this.cash = cash;
     }
 
-    public int checkMoney(List<Order> orderList) {
-        int orderPrice = orderList.stream()
-                .mapToInt(Order::getOrderPrice)
-                .sum();
-
-        if (cash - orderPrice < 0) {
+    // Wallet 이 Order 을 알 필요가 있을까??
+    public int checkMoney(int totalPrice) {
+        if (cash - totalPrice < 0) {
             // 단순성을 위해 -1 로 반환, validation 은 진행하지 않음
             return -1;
         }
 
-        cash -= orderPrice;
-        return orderPrice;
+        cash -= totalPrice;
+        return totalPrice;
     }
 }

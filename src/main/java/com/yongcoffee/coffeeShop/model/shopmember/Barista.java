@@ -1,6 +1,6 @@
 package com.yongcoffee.coffeeShop.model.shopmember;
 
-import com.yongcoffee.coffeeShop.model.item.Order;
+import com.yongcoffee.coffeeShop.model.item.*;
 
 import java.util.List;
 
@@ -11,16 +11,17 @@ public class Barista {
         this.name = name;
     }
 
-    public List<Order> getOrder(List<Order> orderList) {
-        return makeCoffees(orderList);
+    public CompletedCoffeesCarrier getOrder(OrderSheet orderSheet) {
+        return makeCoffees(orderSheet);
     }
 
-    private List<Order> makeCoffees(List<Order> orderList) {
-        for (Order order : orderList) {
-            order.coffeeCompleted(name);
-            order.orderCompleted();
+    private CompletedCoffeesCarrier makeCoffees(OrderSheet orderSheet) {
+        CompletedCoffeesCarrier coffeesCarrier = new CompletedCoffeesCarrier();
+        for (Order order : orderSheet.getOrderList()) {
+            CompletedCoffees completedCoffees = new CompletedCoffees(order.getCoffee(), order.getCount(), OrderStatus.COMPLETED, name);
+            coffeesCarrier.addCoffee(completedCoffees);
         }
 
-        return orderList;
+        return coffeesCarrier;
     }
 }

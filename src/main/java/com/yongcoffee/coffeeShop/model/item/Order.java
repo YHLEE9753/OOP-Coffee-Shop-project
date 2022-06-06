@@ -8,25 +8,26 @@ public class Order {
     private String customerName;
     private Integer orderPrice;
 
+    // 총액 까지 변수로 추가해서 관리하자
+    // 받는 거는 Order 대신 Coffee 와 영수증 을 반환하는게 더 맞는 성질 + 설계이다.
     public Order(Coffee coffee, int count, String customerName) {
         this.coffee = coffee;
         this.orderStatus = OrderStatus.ORDERED;
         this.count = count;
         this.customerName = customerName;
-        orderPrice = coffee.coffeeType.getPrice() * count;
+        orderPrice = coffee.coffeeItem.getPrice() * count;
     }
 
     public Integer getOrderPrice() {
         return orderPrice;
     }
 
-    public void coffeeCompleted(String baristaName) {
-        coffee.coffeeStatus = CoffeeStatus.COMPLETED;
-        coffee.setBaristaName(baristaName);
+    public Coffee getCoffee() {
+        return coffee;
     }
 
-    public void orderCompleted() {
-        orderStatus = OrderStatus.COMPLETED;
+    public int getCount() {
+        return count;
     }
 
     @Override

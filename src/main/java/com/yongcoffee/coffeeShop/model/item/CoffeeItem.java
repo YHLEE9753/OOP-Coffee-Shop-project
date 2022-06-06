@@ -2,7 +2,7 @@ package com.yongcoffee.coffeeShop.model.item;
 
 import java.util.*;
 
-public enum CoffeeType {
+public enum CoffeeItem {
     AMERICANO("Americano", 1900),
     LATTE("Latte", 2500),
     GREEN_TEA("GreenTea", 4000);
@@ -10,21 +10,21 @@ public enum CoffeeType {
     private final String name;
     private final Integer price;
 
-    private static final Map<CoffeeType, Integer> VALUES;
+    private static final Map<CoffeeItem, Integer> VALUES; // coffeeType - size ( 사이즈를 고려해서 다시 설게해보자 )
 
     static {
         VALUES = new HashMap<>();
-        for (CoffeeType coffeeType : CoffeeType.values()) {
-            VALUES.put(coffeeType, coffeeType.price);
+        for (CoffeeItem coffeeItem : CoffeeItem.values()) {
+            VALUES.put(coffeeItem, coffeeItem.price);
         }
     }
 
-    CoffeeType(String name, int price) {
+    CoffeeItem(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
-    public static Map<CoffeeType, Integer> getValues() {
+    public static Map<CoffeeItem, Integer> getValues() {
         return VALUES;
     }
 

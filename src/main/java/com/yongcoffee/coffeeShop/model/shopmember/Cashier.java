@@ -1,6 +1,8 @@
 package com.yongcoffee.coffeeShop.model.shopmember;
 
+import com.yongcoffee.coffeeShop.model.item.CompletedCoffeesCarrier;
 import com.yongcoffee.coffeeShop.model.item.Order;
+import com.yongcoffee.coffeeShop.model.item.OrderSheet;
 
 import java.util.List;
 
@@ -13,8 +15,10 @@ public class Cashier {
         this.barista = barista;
     }
 
-    public List<Order> getOrder(List<Order> orderList, int orderMoney) {
+    public CompletedCoffeesCarrier getOrder(OrderSheet orderSheet, int orderMoney) {
         cashMachine.checkMoney(orderMoney);
-        return barista.getOrder(orderList);
+        // 여기서 주문을 돌면서(for) 여러 바리스타에게 할당하는것 스케줄링하는것도
+        // 고려해 보면 좋을 거 같다
+        return barista.getOrder(orderSheet);
     }
 }
